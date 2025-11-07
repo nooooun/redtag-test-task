@@ -1,0 +1,15 @@
+.idea/
+*.iml
+
+backend/target/
+
+frontend/node_modules/
+frontend/dist/
+
+frontend/.npm/
+*.env.local
+
+*.log
+npm-debug.log*
+
+Thumbs.db
