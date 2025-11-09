@@ -1,0 +1,12 @@
+**/.idea/
+**/.vscode/
+*.iml
+
+**/node_modules/
+
+**/target/
+
+**/dist/
+
+*.log
+npm-debug.log*
