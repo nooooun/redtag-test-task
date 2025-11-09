@@ -1,15 +1,12 @@
-.idea/
+**/.idea/
+**/.vscode/
 *.iml
 
-backend/target/
+**/node_modules/
 
-frontend/node_modules/
-frontend/dist/
+**/target/
 
-frontend/.npm/
-*.env.local
+**/dist/
 
 *.log
 npm-debug.log*
-
-Thumbs.db

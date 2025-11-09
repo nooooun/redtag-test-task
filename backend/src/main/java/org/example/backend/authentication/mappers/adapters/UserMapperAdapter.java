@@ -21,11 +21,6 @@ public interface UserMapperAdapter extends UserMapper {
     User fromRegisterUserDTOToEntity(RegisterUserDTO dto);
 
     @Override
-//    @Mapping(source = "user.username", target = "user.username")
-//    @Mapping(source = "user.email", target = "user.email")
-//    @Mapping(source = "user.role", target = "user.role")
-//    @Mapping(source = "user.createdAt", target = "user.createdAt")
-//    @Mapping(source = "user.modifiedAt", target = "user.modifiedAt")
     @Mapping(source = "user", target = "user")
     @Mapping(source = "jwtTokenPair", target = "tokens")
     AuthResponseDTO fromEntityToAuthResponseDTO(User user, JwtTokenPair jwtTokenPair);

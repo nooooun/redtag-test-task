@@ -108,7 +108,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void logout(String accessToken, String refreshToken) {
-        DecodedJWT decodedAccessToken = tokenDecoder.decodedJWT(accessToken);
+        DecodedJWT decodedAccessToken = tokenDecoder.decodedJWT(accessToken.substring(7));
         DecodedJWT decodedRefreshToken = tokenDecoder.decodedJWT(refreshToken);
         tokenBlacklistService.blacklistToken(decodedAccessToken.getId(),
                 decodedAccessToken.getExpiresAtAsInstant());

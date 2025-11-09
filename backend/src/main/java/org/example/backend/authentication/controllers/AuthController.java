@@ -45,7 +45,7 @@ public class AuthController {
                 .body(authService.refreshToken(dto));
     }
 
-    @DeleteMapping("/logout")
+    @PostMapping("/logout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<?> logout(@Valid @RequestBody RefreshTokenDTO dto,
                                     @RequestHeader("Authorization") String accessToken) {

@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 public record UserResponseDTO(
         String username,
         String email,
-        Role role,
-        LocalDateTime createdAt,
-        LocalDateTime modifiedAt
+        Role role
+//        LocalDateTime createdAt,
+//        LocalDateTime modifiedAt
 ) {
 }

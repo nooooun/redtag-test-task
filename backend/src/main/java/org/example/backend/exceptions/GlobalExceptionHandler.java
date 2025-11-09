@@ -8,9 +8,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.backend.exceptions.authentication.RefreshTokenFailedException;
 import org.example.backend.exceptions.authentication.TokenBlacklistedException;
+import org.example.backend.exceptions.authentication.WrongPasswordException;
+import org.example.backend.exceptions.user.UserNotFountException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -29,6 +32,30 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR)
+                .header("Content-Type", "application/json")
+                .body(errorResponse);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<?> validationExceptionHandler(MethodArgumentNotValidException e, HttpServletRequest request) {
+        var errorResponse = buildErrorResponse(e, ErrorCode.BAD_REQUEST,
+                request, HttpServletResponse.SC_BAD_REQUEST);
+
+        return ResponseEntity
+                .status(HttpServletResponse.SC_BAD_REQUEST)
+                .header("Content-Type", "application/json")
+                .body(errorResponse);
+    }
+
+    @ExceptionHandler({WrongPasswordException.class})
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ResponseEntity<?> wrongCredentialsExceptionHandler(Exception e, HttpServletRequest request) {
+        var errorResponse = buildErrorResponse(e, ErrorCode.BAD_CREDENTIALS,
+                request, HttpServletResponse.SC_FORBIDDEN);
+
+        return ResponseEntity
+                .status(HttpServletResponse.SC_FORBIDDEN)
                 .header("Content-Type", "application/json")
                 .body(errorResponse);
     }
@@ -84,13 +111,13 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(EntityExistsException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<?> entityExistsException(EntityExistsException e, HttpServletRequest request) {
         var errorResponse = buildErrorResponse(e, ErrorCode.RESOURCE_ALREADY_EXISTS,
-                request, HttpServletResponse.SC_BAD_REQUEST);
+                request, HttpServletResponse.SC_CONFLICT);
 
         return ResponseEntity
-                .status(HttpServletResponse.SC_BAD_REQUEST)
+                .status(HttpServletResponse.SC_CONFLICT)
                 .header("Content-Type", "application/json")
                 .body(errorResponse);
     }
