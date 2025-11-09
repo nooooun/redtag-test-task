@@ -35,8 +35,8 @@ const closeSidebar = () => {
 
       <nav class="sidebar-nav">
         <ul>
-          <li><RouterLink to="/home" @click="closeSidebar">Home</RouterLink></li>
-          <li><RouterLink to="/books" @click="closeSidebar">Books</RouterLink></li>
+          <li><RouterLink to="/books" @click="closeSidebar">Home</RouterLink></li>
+          <li><RouterLink to="/favorite-books" @click="closeSidebar">Favorite books</RouterLink></li>
           <li><RouterLink to="/authors" @click="closeSidebar">Authors</RouterLink></li>
         </ul>
       </nav>

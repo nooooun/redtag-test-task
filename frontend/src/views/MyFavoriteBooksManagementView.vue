@@ -19,11 +19,11 @@ const isFilterOpen = ref(false);
 const searchQuery = ref('');
 const currentFilters = ref<BookFilterParamsDTO>({});
 
-const fetchBooks = async (page: number = 0) => {
+const fetchFavoriteBooks = async (page: number = 0) => {
   isLoading.value = true;
 
   const allFilters: BookFilterParamsDTO = {
-    ...currentFilters.value,
+    ...currentFilters.value
   };
 
   if (searchQuery.value && searchQuery.value.trim() !== '') {
@@ -37,28 +37,27 @@ const fetchBooks = async (page: number = 0) => {
   });
 
   try {
-    const response = await bookService.getBooks(page, booksPerPage, allFilters);
+    const response = await bookService.getFavoriteBooks(page, booksPerPage, allFilters);
     books.value = response.content;
     totalPages.value = response.totalPages;
     currentPage.value = response.number;
   } catch (error) {
-    console.error("Failed to fetch books:", error);
+    console.error("Failed to fetch favorite books:", error);
   } finally {
     isLoading.value = false;
   }
 };
 
 const handleSearch = () => {
-  fetchBooks(0);
+  fetchFavoriteBooks(0);
 };
 
 const applyFilters = (newFilters: BookFilterParamsDTO) => {
   currentFilters.value = newFilters;
   isFilterOpen.value = false;
-  fetchBooks(0);
+  fetchFavoriteBooks(0);
 };
 
-const goToAddBook = () => router.push({ name: 'add-book' });
 const goToBookDetail = (bookId: number) => router.push({ name: 'book-details', params: { id: bookId } });
 
 onMounted(() => {
@@ -69,7 +68,7 @@ onMounted(() => {
   searchQuery.value = (title as string) || '';
   currentFilters.value = filters as BookFilterParamsDTO;
 
-  fetchBooks(currentPage.value);
+  fetchFavoriteBooks(currentPage.value);
 });
 </script>
 
@@ -83,7 +82,7 @@ onMounted(() => {
 
       <input
           type="search"
-          placeholder="Search books by title"
+          placeholder="Loading favorite books..."
           v-model="searchQuery"
           @keyup.enter="handleSearch"
       />
@@ -99,18 +98,14 @@ onMounted(() => {
           {{ book.title }}
         </li>
       </ul>
-      <div v-else class="loading-prompt"><p>There is no books.</p></div>
+      <div v-else class="loading-prompt"><p>There is no favorite books</p></div>
     </div>
 
     <Pagination
         :currentPage="currentPage"
         :totalPages="totalPages"
-        @change-page="fetchBooks"
+        @change-page="fetchFavoriteBooks"
     />
-
-    <button @click="goToAddBook" class="fab-right" aria-label="Add book">
-      +
-    </button>
 
     <BookFilterPanel
         :isOpen="isFilterOpen"
@@ -155,7 +150,6 @@ onMounted(() => {
   background-color: var(--color-border);
 }
 
-
 .loading-prompt {
   text-align: center;
   color: var(--color-text-secondary);
@@ -173,16 +167,4 @@ onMounted(() => {
   cursor: pointer; transition: background-color 0.2s;
 }
 .book-list li:hover { background-color: var(--color-border); }
-
-.fab-right {
-  position: fixed; bottom: 2rem; right: 2rem;
-  width: 60px; height: 60px; background-color: var(--color-accent);
-  color: var(--color-background); border: none; border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); cursor: pointer;
-  display: flex; justify-content: center; align-items: center;
-  font-size: 2rem; line-height: 1;
-  transition: transform 0.2s ease-out;
-}
-.fab-right:hover { transform: scale(1.1); }
-
 </style>

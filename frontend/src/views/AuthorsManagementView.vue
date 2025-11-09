@@ -13,7 +13,7 @@ const currentPage = ref(0)
 const totalPage = ref(0)
 const searchQuery = ref('')
 const isLoading = ref(true)
-const authorsPerPage = 5
+const authorsPerPage = 7
 
 const fetchAuthors = async (page: number = 0) => {
   isLoading.value = true
@@ -73,7 +73,7 @@ onMounted(() => {
         placeholder="Search"
         v-model="searchQuery"
         @keyup.enter="handleSearch"/>
-      <button @click="handleSearch" class="search-button" aria-label="Search">
+      <button @click="handleSearch" class="search-button" aria-label="Search authors...">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
       </button>
     </div>

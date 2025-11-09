@@ -26,7 +26,7 @@ const handleRegistration = async () => {
 
   try {
     await authService.register(dto)
-    await router.push('/home')
+    await router.push('/books')
   } catch (error) {
     if (error instanceof AxiosError) {
       if (error.response?.status === 409) {
@@ -66,7 +66,6 @@ const handleRegistration = async () => {
         <label for="role">Account Type:</label>
         <select id="role" v-model="role" required>
           <option value="USER">User</option>
-          <option value="AUTHOR">Admin</option>
         </select>
       </div>
 

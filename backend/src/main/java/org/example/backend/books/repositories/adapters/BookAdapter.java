@@ -4,13 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.example.backend.books.models.Book;
 import org.example.backend.books.repositories.BookRepository;
 import org.example.backend.books.repositories.jpa.BookJpaRepository;
+import org.example.backend.exceptions.book.BookNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.stylesheets.LinkStyle;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +28,13 @@ public class BookAdapter implements BookRepository {
     }
 
     @Override
-    public void delete(String title) {
-        bookJpaRepository.deleteBookByTitle(title);
+    @Transactional
+    public void delete(Long id) {
+        bookJpaRepository.deleteBookById(id);
+    }
+
+    @Override
+    public Book findById(Long id) {
+        return bookJpaRepository.findById(id).orElseThrow(BookNotFoundException::new);
     }
 }

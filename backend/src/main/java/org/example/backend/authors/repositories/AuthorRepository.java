@@ -10,4 +10,5 @@ public interface AuthorRepository {
     Page<Author> findAll(Specification<Author> specification, Pageable pageable);
     void delete(Long id);
     Author findById(Long id);
+    Author findByFullName(String fullName);
 }

@@ -10,4 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface AuthorJpaRepository extends JpaRepository<Author, Long>, JpaSpecificationExecutor<Author> {
+    Author findByFullName(String fullName);
 }

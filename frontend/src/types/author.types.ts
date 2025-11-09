@@ -1,10 +1,10 @@
 export interface CreateAuthorDTO {
-    fullName: String,
-    birthdate: String
+    fullName: string,
+    birthdate: string
 }
 
 export interface AuthorResponseDTO {
     id: number,
-    fullName: String,
-    birthdate: String
+    fullName: string,
+    birthdate: string
 }

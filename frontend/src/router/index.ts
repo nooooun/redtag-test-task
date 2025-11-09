@@ -4,10 +4,12 @@ import {tokenService} from "@/services/tokenService.ts";
 import RegisterView from "../views/RegisterView.vue";
 import LoginView from "../views/LoginView.vue";
 import HomeView from "../views/HomeView.vue";
-import BooksManagementView from "../views/BooksManagementView.vue";
+import MyFavoriteBooksManagementView from "../views/MyFavoriteBooksManagementView.vue";
 import AuthorManagementView from "../views/AuthorsManagementView.vue";
 import AddAuthorView from "../views/AddAuthorView.vue";
 import AuthorDetailsView from "../views/AuthorDetailsView.vue";
+import AddBookView from "../views/AddBookView.vue";
+import BookDetailsView from "../views/BookDetailsView.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,15 +25,15 @@ const router = createRouter({
             component: LoginView
         },
         {
-            path: '/home',
-            name: 'home',
+            path: '/books',
+            name: 'books',
             component: HomeView,
             meta: {requiresAuth: true}
         },
         {
-          path: '/books',
-          name: 'books',
-          component: BooksManagementView,
+          path: '/favorite-books',
+          name: 'favorite-books',
+          component: MyFavoriteBooksManagementView,
           meta: {requiresAuth: true}
         },
         {
@@ -53,8 +55,20 @@ const router = createRouter({
             meta: {requiresAuth: true}
         },
         {
+            path: '/add-book',
+            name: 'add-book',
+            component: AddBookView,
+            meta: {requiresAuth: true}
+        },
+        {
+            path: '/books/:id',
+            name: 'book-details',
+            component: BookDetailsView,
+            meta: {requiresAuth: true}
+        },
+        {
             path: '/',
-            redirect: '/register'
+            redirect: '/books'
         }
     ]
 })

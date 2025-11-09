@@ -60,7 +60,7 @@ export const setupResponseInterceptor = (router: Router) => {
                     try {
                         const tokens: JWTTokenPair = await authService.refreshToken()
                         processQueue(null, tokens.accessToken.toString())
-                        originalRequest.headers['Authorization'] = 'Bearer' + tokens.accessToken
+                        originalRequest.headers['Authorization'] = 'Bearer ' + tokens.accessToken
                         return api(originalRequest)
                     } catch (refreshError) {
                         processQueue(refreshError, null)

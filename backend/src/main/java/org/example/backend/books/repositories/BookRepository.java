@@ -10,5 +10,6 @@ import java.util.List;
 public interface BookRepository {
     Book save(Book book);
     Page<Book> findAll(Specification<Book> specification, Pageable pageable);
-    void delete(String title);
+    void delete(Long id);
+    Book findById(Long id);
 }

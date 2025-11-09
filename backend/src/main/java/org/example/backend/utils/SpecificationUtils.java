@@ -46,8 +46,22 @@ public class SpecificationUtils {
             return (root, query, cb) -> null;
         }
         return (root, query, cb) -> {
+            assert query != null;
+            query.distinct(true);
             Join<S, Object> join = root.join(joinField);
             return cb.like(cb.lower(join.get(field)), "%" + value.toLowerCase() + "%");
+        };
+    }
+
+    public static <S> Specification<S> joinEqual(String joinField, String field, Object value) {
+        if (value == null) {
+            return (root, query, cb) -> null;
+        }
+        return (root, query, cb) -> {
+            assert query != null;
+            query.distinct(true);
+            Join<S, Object> join = root.join(joinField);
+            return cb.equal(join.get(field), value);
         };
     }
 }

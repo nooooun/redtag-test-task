@@ -1,18 +1,25 @@
 package org.example.backend.books.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.GeneratedValue;
+import lombok.*;
 import org.example.backend.books.enums.BookGenre;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
-public record BookFilterParamsDTO(
-        String title,
-        List<BookGenre> bookGenres,
+@Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class BookFilterParamsDTO  {
+        private String title;
+        private List<BookGenre> bookGenres;
         @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
-        LocalDate publishedBefore,
+        private LocalDate publishedBefore;
         @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
-        LocalDate publishedAfter,
-        String authorFullName
-) {
+        private LocalDate publishedAfter;
+        private String authorFullName;
+        private UUID userUuid;
 }

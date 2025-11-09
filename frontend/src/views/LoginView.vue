@@ -21,7 +21,7 @@ const handleLogin = async () => {
 
   try {
     await authService.login(dto)
-    await router.push('/home')
+    await router.push('/books')
   } catch (error) {
     if (error instanceof AxiosError && error.response) {
       if (error.response.status === 404) {

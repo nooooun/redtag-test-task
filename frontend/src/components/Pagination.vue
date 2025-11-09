@@ -22,7 +22,7 @@ const changePage = (page: number) => {
     </button>
 
     <span class="page-info">
-      Page {{currentPage + 1}} from {{totalPages}}
+      {{currentPage + 1}}/{{totalPages}}
     </span>
 
     <button @click="changePage(currentPage + 1)" :disabled="currentPage === totalPages - 1" class="page-button">

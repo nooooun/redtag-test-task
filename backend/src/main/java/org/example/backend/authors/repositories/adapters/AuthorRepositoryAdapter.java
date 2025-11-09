@@ -36,6 +36,11 @@ public class AuthorRepositoryAdapter implements AuthorRepository {
 
     @Override
     public Author findById(Long id) {
-        return authorJpaRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException(id));
+        return authorJpaRepository.findById(id).orElseThrow(AuthorNotFoundException::new);
+    }
+
+    @Override
+    public Author findByFullName(String fullName) {
+        return authorJpaRepository.findByFullName(fullName);
     }
 }
